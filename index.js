@@ -1,18 +1,30 @@
-// document.querySelector("buuton").addEventListener("click",handleClick);
+var n = document.querySelectorAll(".drum").length;
 
-// function handleClick(){
-//     alert("click");
-// }
+for(i=0 ; i< n ; i++){
 
-var numberOfDrumButtons = document.querySelectorAll(".drum").length;
-
-for (var i=0; i< numberOfDrumButtons; i++){
+    document.querySelectorAll(".drum")[i].addEventListener("click", function(){
     
-    document.querySelectorAll(".drum")[i].addEventListener("click",function(){
-
-        var buttonInnerHTML = this.innerHTML;
-
-        switch(buttonInnerHTML){
+       var button = this.innerHTML;
+       isPressed(button);
+       clickAnimation(button);
+       
+    
+    })
+    
+    }
+    
+    
+    document.addEventListener("keypress",function(event){
+    
+        isPressed(event.key);
+        clickAnimation(event.key);
+    
+    }
+    )
+    function isPressed(key)
+    {
+        switch(key)
+        {
             case "H":
                 var audio = new Audio("sounds/Happy Birthday.mp3");
                 audio.play();
@@ -47,8 +59,19 @@ for (var i=0; i< numberOfDrumButtons; i++){
                 var audio = new Audio("sounds/snare.mp3");
                 audio.play();
                 break;
-
-                default: console.log(buttonInnerHTML)
+    
+             default:console.log("clicked");
         }
-    })
-}
+    }
+
+function clickAnimation(key){
+
+    var activeButton = document.querySelector("."+key);
+    activeButton.classList.add("pressed");
+ 
+    setTimeout(function(){
+ 
+        activeButton.classList.remove("pressed");
+    },1000)
+ 
+ }
